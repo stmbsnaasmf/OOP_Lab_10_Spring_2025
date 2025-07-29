@@ -599,8 +599,69 @@ int main()
 
 \begin{enumerate}
 
-\item Write a function \textcolor{red}{\texttt{void reverseArray (int* arr, int length)}} that reverses an array. Demonstrate by printing the array before and after reversing.
+    \item \textbf{Library Book Catalog:} Create a \textcolor{red}{\texttt{Book}} class with appropriate constructor, getters, and the following attributes:
 
+    \begin{itemize}
+        \item \textcolor{red}{\texttt{isbn (string)}}
+        \item \textcolor{red}{\texttt{author (string)}}
+        \item \textcolor{red}{\texttt{title (string)}}
+    \end{itemize}
+
+    Store books in an \textcolor{red}{\texttt{unordered\_map<string, Book>}} (key = ISBN).
+
+    Implement a \textcolor{red}{\texttt{search}} function that returns the number of books by a given author and takes a \textcolor{red}{\texttt{multimap<string, Book>}} parameter for 
+    author indexing.
+
+    \textbf{Hints:}
+
+    \begin{itemize}
+        \item You will need the following headers.
+        
+        \begin{itemize}
+            \item \textcolor{red}{\texttt{<unordered\_map>}}
+            \item \textcolor{red}{\texttt{<map>}}
+        \end{itemize}
+
+        \item Your \textcolor{red}{\texttt{search}} function can have the following prototype: 
+        
+        \textcolor{red}{\texttt{int search(unordered\_map<string, Book>\& library, string author, multimap<string, Book>\& searchResult)}}
+
+        \item You can use the \textcolor{red}{\texttt{.insert()}} function for insertions. You will need to use braces inside the function, like this: 
+        \textcolor{red}{\texttt{.insert(\{author, Book\})}}.
+
+        \item Refer to the \textcolor{red}{\texttt{map}} example given in the manual for further help.
+        
+        \item You may consult the Internet, but do not copy code from ChatGPT.
+
+        \item You may use the following books to test your code (you can also come up with your own). 
+
+\begin{minted}[bgcolor=bg, framesep=2mm]{cpp}
+    Book b0("9635280258938", "Mercury", "Asad");
+    Book b1("4702599831795", "Venus", "Asad");
+    Book b2("8417392305289", "Earth", "Asad");
+    Book b3("4323267170016", "Mars", "Taimoor");
+    Book b4("8951093252041", "Saturn", "Unknown");
+    Book b5("5580166798252", "Jupiter", "Taimoor");
+\end{minted}
+
+    \end{itemize}
+
+    \item Create a class \textcolor{red}{\texttt{Student}} with attributes \textcolor{red}{\texttt{string name}} and \textcolor{red}{\texttt{string rollNo}}. Read names and roll number 
+    from a csv (or \textcolor{red}{\texttt{.txt}}) file, and store the class objects in an ordered container. Overload the \textcolor{red}{\texttt{<}} operator so that the 
+    \textcolor{red}{\texttt{Student}} objects are sorted by roll numbers lexicographically, and \textbf{make sure} that the comparision is case \textbf{insensitive}. 
+    
+    You may use the following file for testing:
+
+\begin{minted}[bgcolor=bg, framesep=2mm]{cpp}
+24g-bCs007, hUzAiFa,
+24g-bCs003, bArIrA,
+24G-BcS001, Abdur Rehman,
+24G-BcS002, AhSaN,
+24g-bCs004, fAtImA,
+\end{minted}
+
+    \item Create a class \textcolor{red}{\texttt{Polynomial}} utilizing \textcolor{red}{\texttt{std::vector}} and overload the \textcolor{red}{\texttt{+}}, \textcolor{red}{\texttt{-}} and 
+    \textcolor{red}{\texttt{*}} operators and preferably the \textcolor{red}{\texttt{/}} operator as well for a bonus of 2 marks. Hints to follow later.
 
 \end{enumerate}
 
