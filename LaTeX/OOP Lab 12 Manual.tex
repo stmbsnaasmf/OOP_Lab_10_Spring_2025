@@ -20,9 +20,7 @@
 \definecolor{bg}{HTML}{282828}      % For code blocks, from https://github.com/kevinsawicki/monokai
 \usepackage{nameref}
 \usepackage{caption}                % To use \caption*{} to show only the caption text without "Table 1: <text>"
-% \usepackage{mathtools, tccomicsans}
-% \usepackage{comicsans}
-% \usepackage[main,largesymbols]{tccomicsans} % https://www.reddit.com/r/LaTeX/comments/1l5no5d/comment/mwm64ze/
+\usepackage[main,largesymbols]{tccomicsans} % https://www.reddit.com/r/LaTeX/comments/1l5no5d/comment/mwm64ze/
 \renewcommand*\contentsname{Summary}
 % \renewcommand{\contentsname}{\centering \normalfont\normalsize Contents}
 \renewcommand{\contentsname}{\centering \bfseries\Large Contents}
@@ -421,13 +419,15 @@ using namespace std;
 
 int main()
 {	
-    map<string, string> students = {{"K164078", "KMT"}, 
-                                    {"K163859", "SMR"}, 
-                                    {"K163860", "STM"}};
+    map<string, string> students =
+                     {{"K164078", "KMT"}, 
+                      {"K163859", "SMR"}, 
+                      {"K163860", "STM"}};
 
     for (std::pair<string, string> i : students)
     {
-        cout << i.first << ", " << i.second << "\n";
+        cout << i.first << ", " 
+             << i.second << "\n";
     }
 
     return 0;
@@ -459,7 +459,8 @@ int main()
     vector<int> numbers = {0, 1, 2, 3, 4};
 
     for (vector<int>::iterator it = 
-        numbers.begin(); it != numbers.end(); it++)
+        numbers.begin(); 
+        it != numbers.end(); it++)
     {
         cout << *it << " ";
         //0 1 2 3 4
@@ -467,7 +468,8 @@ int main()
     cout << "\n";
 
     for (vector<int>::reverse_iterator rit = 
-        numbers.rbegin(); rit != numbers.rend(); rit++)
+        numbers.rbegin(); 
+        rit != numbers.rend(); rit++)
     {
         cout << *rit << " ";
         //4 3 2 1 0
@@ -483,22 +485,31 @@ int main()
 \noindent Also see: \url{https://cplusplus.com/reference/vector/vector/rbegin/}
 
 
+\newpage
+\addcontentsline{toc}{section}{Polynomials with Vectors}
+\section*{Polynomials with Vectors}
 
+\addcontentsline{toc}{subsection}{Representation}
+\subsection*{Representation}
 
+\begin{align*}
+    3x^2 + 2x + 1 &= 0 \\ 
+\end{align*}
 
+\begin{align*}
+    3x^2 + 2x + 1 &= 3x^2 + 2x^1 + 1x^0 \\ 
+\end{align*}
 
+\noindent Here 3, 2 and 1 are the coefficients, and the degree of polynomial is 2. \\
 
+\noindent We can simply store the coefficients in our array or vector, without  worrying about storing powers of x. \\
 
+\noindent For an equation where a middle term is $0$, we will simply store a $0$. \\
 
-
-
-
-
-
-
-
-
-
+\begin{align*}
+    4x^3 + 2x + 1 &= 4x^3 + 0x^2 + 2x + 1 \\ 
+    4x^3 + 2x + 1 &= 4x^3 + 0x^2 + 2x^1 + 1x^0 \\ 
+\end{align*}
 
 
 
@@ -511,42 +522,130 @@ int main()
 
 
 % \newpage
-% \addcontentsline{toc}{subsection}{Iterating through Vectors}
-% \subsection*{Iterating through Vectors}
+\addcontentsline{toc}{subsection}{Addition}
+\subsection*{Addition}
 
-% \noindent 
+\noindent Addition between two polynomials is simple. It has three cases but they are easy to handle. The cases are: 
+when both polynomials have the same degree (same number of terms), when the polynomial on the left of positive sign 
+has a larger degree, and when the polynomial on the right side of the positive sign has a larger degree. \\
 
-% \begin{minted}[bgcolor=bg, framesep=2mm]{cpp}
-% #include <iostream>
-% #include <vector>
-% using namespace std;
+\noindent THe first case is simple enough. \\
 
-% int main()
-% {
-%     vector<int> numbers = {0, 1, 2, 3, 4};
+\noindent The last two cases require that the resultant polynomial be initiated with values (coefficients) of the greater 
+polynomial. We then loop through the smaller polynomial to add like terms (terms with the same power). \\
 
-%     for (int i = 0; i < numbers.size(); i++)
-%     {
-%         cout << numbers[i] << " ";
-%     }
-%     cout << "\n";
+\begin{align*}
+    \intertext{Case 1:} 
+    & 3x^2 + 2x^1 + 1x^0 \\
+    + & 3x^2 + 2x^1 + 1x^0 \\
+    \intertext{Case 2:} 
+    4x^3 + & \, 3x^2 + 2x^1 + 1x^0 \\
+    & \, 3x^2 + 2x^1 + 1x^0 \\
+    \intertext{Case 3:} 
+    & \, 3x^2 + 2x^1 + 1x^0 \\
+    4x^3 + & \, 3x^2 + 2x^1 + 1x^0 \\
+\end{align*}
 
-%     for (int i : numbers)
-%     {
-%         cout << i << " ";
-%     }
-%     cout << "\n";
 
-%     for (vector<int>::iterator it = numbers.begin(); 
-%         it != numbers.end(); it++)
-%     {
-%         cout << *it << " ";
-%     }
-%     cout << "\n";
 
-%     return 0;
-% }
-% \end{minted}
+
+
+
+
+
+
+
+\newpage
+\addcontentsline{toc}{subsection}{Subtraction}
+\subsection*{Subtraction}
+
+\noindent As with addition, subtraction also has the same three cases, but the third case is handled differently and may seem 
+unintuitive. \\
+
+\begin{align*}
+    \intertext{Case 1:} 
+    & 3x^2 + 2x^1 + 1x^0 \\
+    - & (3x^2 + 2x^1 + 1x^0) \\
+    \intertext{Case 2:} 
+    4x^3 + & \, 3x^2 + 2x^1 + 1x^0 \\
+    - \, (& \, 3x^2 + 2x^1 + 1x^0 ) \\
+    \intertext{Case 3:} 
+    & \, 3x^2 + 2x^1 + 1x^0 \\
+    - \, (4x^3 + & \, 3x^2 + 2x^1 + 1x^0) \\
+    \intertext{It resolves to} 
+    & \, 3x^2 + 2x^1 + 1x^0 \\
+    + \, (-4x^3 - & \, 3x^2 - 2x^1 - 1x^0) \\
+    \intertext{Or}
+    -4x^3 \, - & 3x^2 - 2x^1 - 1x^0 \\
+    + \, & 3x^2 + 2x^1 + 1x^0 \\
+\end{align*}
+
+\noindent That is, the subtraction becomes addition in this case. \\
+
+\noindent In other words, the third subtraction case becomes the second addition case. \\
+
+
+
+
+
+
+
+
+
+
+\newpage
+\addcontentsline{toc}{subsection}{Multiplication}
+\subsection*{Multiplication}
+
+\noindent In multiplication, the product polynomial's degree is the sum of degrees of the two polynomials being 
+multiplied. Note that it is \textbf{not} their product. \\
+
+\noindent Multiplication also has the same three cases, but in my opinion, they are a lot easier to handle. \\
+
+\begin{align*}
+    (5x^1 + 2x^0) * (3x^2 + 2x^1 + 1x^0) &= (15x^3 + 10x^2 + 5x^0) + (6x^2 + 4x^1 + 2x^0) \\
+    (5x^1 + 2x^0) * (3x^2 + 2x^1 + 1x^0) &= 15x^3 + 10x^2 + 5x^0 + 6x^2 + 4x^1 + 2x^0 \\
+    (5x^1 + 2x^0) * (3x^2 + 2x^1 + 1x^0) &= 15x^3 + 16x^2 + 4x^1 + 7x^0 \\
+\end{align*}
+
+\noindent The trick with multiplication is to determine the term (power of $x$) of the product polynomial within the 
+nested loops (multiplication requires that each term of one polynomial be multipled with each term of the other 
+polynomial). \\
+
+
+
+
+
+
+\newpage
+\addcontentsline{toc}{subsection}{Long Division}
+\subsection*{Long Division}
+
+\noindent Left as an exercise to the reader...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -636,12 +735,12 @@ int main()
         \item You may use the following books to test your code (you can also come up with your own). 
 
 \begin{minted}[bgcolor=bg, framesep=2mm]{cpp}
-    Book b0("9635280258938", "Mercury", "Asad");
-    Book b1("4702599831795", "Venus", "Asad");
-    Book b2("8417392305289", "Earth", "Asad");
-    Book b3("4323267170016", "Mars", "Taimoor");
-    Book b4("8951093252041", "Saturn", "Unknown");
-    Book b5("5580166798252", "Jupiter", "Taimoor");
+Book b0("9635280258938", "Mercury", "Asad");
+Book b1("4702599831795", "Venus", "Asad");
+Book b2("8417392305289", "Earth", "Asad");
+Book b3("4323267170016", "Mars", "Taimoor");
+Book b4("8951093252041", "Saturn", "Unknown");
+Book b5("5580166798252", "Jupiter", "Taimoor");
 \end{minted}
 
     \end{itemize}
@@ -659,6 +758,12 @@ int main()
 24G-BcS002, AhSaN,
 24g-bCs004, fAtImA,
 \end{minted}
+
+    \item Use \textcolor{red}{\texttt{std::stack}} to verify that a given sequence of brackets is correct 
+    (all opening brackets match their closing counterparts).
+
+    \textbf{Hint:} Iterate the string and whenever you encounter an opening bracket, push it on the stack. 
+    Whenever you find a closing bracket, if it is the same type as (the one on) the top of the stack, pop the stack.
 
     \item Create a class \textcolor{red}{\texttt{Polynomial}} utilizing \textcolor{red}{\texttt{std::vector}} and overload the \textcolor{red}{\texttt{+}}, \textcolor{red}{\texttt{-}} and 
     \textcolor{red}{\texttt{*}} operators and preferably the \textcolor{red}{\texttt{/}} operator as well for a bonus of 2 marks. Hints to follow later.
